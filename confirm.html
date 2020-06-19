@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<title>jQuery TIPS</title>
+</head>
+<body>
+<form>
+  <div>
+    <label for="keyword">キーワード：</label>
+    <input id="keyword" type="text" size="20" />
+    <input id="search" type="button" value="検索" />
+  </div>
+</form>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<!--confirmプラグインをインポート-->
+<!--<script src="jquery.confirm.js"></script>-->
+<script>
+(function($) {
+  $.fn.confirm = function() {
+    this.click(function(e) {
+      if(!confirm('処理を継続してよろしいですか？')) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+      }
+    });
+    return this;
+  };
+})(jQuery);
+$(function() {
+  // confirmプラグインを適用
+  $('#search')
+   .confirm()
+   // クリック時の挙動を定義
+   .click(function() {
+     console.log('処理が実行されました。');
+   });
+});
+</script>
+</body>
+</html>
